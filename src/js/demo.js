@@ -1,6 +1,11 @@
 import Demo from './all'
-import * as vis from 'vis'
-import * as math from 'mathjs'
+import Graph3d from 'vis/lib/graph3d/Graph3d'
+import DataSet from 'vis/lib/DataSet'
+import core from 'mathjs/core'
+const math = core.create()
+math.import(require('mathjs/lib/expression/function/parse'))
+math.import(require('mathjs/lib/function/arithmetic/multiply'))
+math.import(require('mathjs/lib/function/complex/re'))
 
 var demo = new Demo({
 	ui: {
@@ -45,7 +50,7 @@ var demo = new Demo({
 
 		// Instantiate our graph object.
 		var container = document.getElementById('visualization');
-		this.data = new vis.DataSet();
+		this.data = new DataSet();
 		this.data.add({id:0,x:0,y:0,z:0,style:0});
 		var options = {
 		    // width:  '500px',
@@ -62,7 +67,7 @@ var demo = new Demo({
 		    // zMin: -1000,
 		    // zMax: 1000
 		};
-		this.graph3d = new vis.Graph3d(container, this.data, options);
+		this.graph3d = new Graph3d(container, this.data, options);
 		this.graph3d.setCameraPosition({
 			horizontal: -1.57,
 			vertical: 0,
@@ -162,7 +167,7 @@ var demo = new Demo({
 		} catch (e) {
 			console.error(e)
 			alert("Sorry, it looks like there's something wrong with the mathematical expression you entered. Please try again.");
-			this.data = new vis.DataSet();
+			this.data = new DataSet();
 			this.data.add({id:0,x:0,y:0,z:0,style:0});
 			this.graph3d.setData(this.data);
 		}
@@ -187,7 +192,7 @@ var demo = new Demo({
 	},
 
 	threeDPlot: function(){
-		this.data = new vis.DataSet();
+		this.data = new DataSet();
 
 		var counter = 0;
 		var steps = 50;  // number of datapoints will be steps*steps
@@ -243,7 +248,7 @@ var demo = new Demo({
 
 		if (nanCount > 0){
 			alert('Your expression has resulted in some mathematical errors. Please try again');
-			this.data = new vis.DataSet();
+			this.data = new DataSet();
 			this.data.add({id:0,x:0,y:0,z:0,style:0});
 			this.graph3d.setData(this.data);
 		}

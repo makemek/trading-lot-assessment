@@ -1,5 +1,7 @@
 const path = require('path')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const webpack = require('webpack')
 
 module.exports = {
   entry: './src/js/demo.js',
@@ -7,7 +9,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.min.js',
   },
-  devtool: 'eval-source-map',
+  devtool: 'source-map',
   devServer: {
     contentBase: path.resolve(__dirname, 'dist'),
     compress: true,
@@ -27,6 +29,11 @@ module.exports = {
     new CopyWebpackPlugin([
       { from: 'src/index.html' },
       { from: 'src/css/', to: 'css', toType: 'dir' },
-    ])
+    ]),
+    new webpack.ContextReplacementPlugin(
+      /moment[\/\\]locale$/,
+      /en/
+    ),
+    // new BundleAnalyzerPlugin(),
   ]
 }
