@@ -1,7 +1,7 @@
 {
   "name": "pip-risk-plot",
   "version": "0.0.0",
-  "description": "2D Plot for trading position size allocation",
+  "description": "3D Plot for trading position size allocation",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
