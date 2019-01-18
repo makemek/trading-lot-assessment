@@ -9,7 +9,7 @@ function isNumber(n) {
 	return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
-function Demo(settings){
+export default function Demo(settings){
 	var self = this;
 
 	for (var name in settings) {
@@ -35,6 +35,7 @@ function Demo(settings){
 
 	this.addUIElement = function(prop){
 		var ui = this.ui;
+		var className;
 		// console.log(this, ui);
 
 		var propContainerSelector = '#'+prop+'-interface';
@@ -84,6 +85,7 @@ function Demo(settings){
   			    // self.update(prop);
 			});
 		} else if (isNumber(ui[prop].value) && (!$.isArray(ui[prop].values))){
+				var sliderInputBoxHTML
 	  		if (ui[prop].units){
 	  			sliderInputBoxHTML = "<div class='input-group'><input class='form-control with-units' value='"+ui[prop].value+"'><span class='input-group-addon'>"+ui[prop].units+"</span></div>";
 	  		} else if (ui[prop].input === 'readonly'){

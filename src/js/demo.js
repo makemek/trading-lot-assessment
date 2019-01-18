@@ -1,3 +1,7 @@
+import Demo from './all'
+import * as vis from 'vis'
+import * as math from 'mathjs'
+
 var demo = new Demo({
 	ui: {
 		expression: {
@@ -156,6 +160,7 @@ var demo = new Demo({
 			this.expr = this.node.compile();
 			this.threeDPlot();
 		} catch (e) {
+			console.error(e)
 			alert("Sorry, it looks like there's something wrong with the mathematical expression you entered. Please try again.");
 			this.data = new vis.DataSet();
 			this.data.add({id:0,x:0,y:0,z:0,style:0});
@@ -190,6 +195,7 @@ var demo = new Demo({
 		var axisStep = axisMax / steps;
 		// var numberOfSteps = 25;
 		var numberOfSteps = this.ui.resolution.value;
+		var xRange, yRange, xInterval, yInterval;
 		xRange = this.ui.xRange.value.split(",");
 		yRange = this.ui.yRange.value.split(",");
 		xRange[0] = parseFloat(xRange[0]);
@@ -198,7 +204,7 @@ var demo = new Demo({
 		yRange[1] = parseFloat(yRange[1]);
 		xInterval = (xRange[1] - xRange[0]) / numberOfSteps;
 		yInterval = (yRange[1] - yRange[0]) / numberOfSteps;
-		rangeError = 0;
+		var rangeError = 0;
 		if (this.isNumber(xInterval) && xInterval > 0){
 
 		} else {
@@ -211,7 +217,7 @@ var demo = new Demo({
 			rangeError++;
 			alert("There is a problem with the y range");
 		}
-		nanCount = 0;
+		var nanCount = 0;
 		if (rangeError == 0){
 			for (var x = xRange[0] ; x <= xRange[1] ; x+=xInterval) {
 				for (var y = yRange[0]; y <= yRange[1]; y+=yInterval) {
